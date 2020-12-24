@@ -1,6 +1,7 @@
 import React from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 import axios from 'axios';
 import Header from "../components/Header";
 
@@ -47,6 +48,22 @@ export class DisplayPage extends React.Component {
                 </a>
             )
         }
+
+        
+
+        const saveButtonBodyTemplate = () => {
+            const handleSaveClick = () => {
+                console.log('clicked save')
+            }
+
+            return (
+                <Button 
+                    icon="pi pi-bookmark" 
+                    className="p-button-rounded p-button-secondary p-button-outlined" 
+                    onClick={() => handleSaveClick()} 
+                />
+            )
+        }
         
         return (
             <div>
@@ -54,9 +71,10 @@ export class DisplayPage extends React.Component {
                 <DataTable value={this.state.gists} resizableColumns columnResizeMode="fit">
                     <Column body={userBodyTemplate} header="User" style={{width:'10%'}}></Column>
                     <Column body={gistBodyTemplate} header="Gist" style={{width:'30%'}}></Column>
-                    <Column field="description" header="Description" style={{width:'40%'}}></Column>
+                    <Column field="description" header="Description" style={{width:'35%'}}></Column>
                     <Column field="created_at" header="Date Created" style={{width:'10%'}}></Column>
                     <Column field="updated_at" header="Last Updated" style={{width:'10%'}}></Column>
+                    <Column body={saveButtonBodyTemplate} header="" style={{width:'5%'}}></Column>
                 </DataTable>
             </div>
         );

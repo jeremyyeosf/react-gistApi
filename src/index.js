@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'primeflex/primeflex.css'
 import 'primereact/resources/themes/fluent-light/theme.css';
 import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 
 ReactDOM.render(
