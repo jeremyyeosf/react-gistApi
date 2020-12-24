@@ -34,7 +34,7 @@ export class DisplayPage extends React.Component {
 
         const userBodyTemplate = (rowData) => {
             return (
-                <a href={rowData.owner.url} target="_blank" rel="noopener noreferrer" className="anchortext">
+                <a href={rowData.owner.html_url} target="_blank" rel="noopener noreferrer" className="anchortext">
                     {rowData.owner.login}
                 </a>
             )
@@ -42,8 +42,8 @@ export class DisplayPage extends React.Component {
 
         const gistBodyTemplate = (rowData) => {
             return (
-                <a href={rowData.url} target="_blank" rel="noopener noreferrer" className="anchortext">
-                    {rowData.url}
+                <a href={rowData.html_url} target="_blank" rel="noopener noreferrer" className="anchortext">
+                    {rowData.html_url}
                 </a>
             )
         }
