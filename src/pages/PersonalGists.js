@@ -15,7 +15,6 @@ export class PersonalGists extends React.Component {
         this.state = {
             gists: [],
             title: "Personal Gists",
-            favouritedGists: []
         };
     }
 

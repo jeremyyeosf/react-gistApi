@@ -16,7 +16,6 @@ export default class BookmarkedGists extends React.Component {
     componentDidMount() {
         // retrieve id and then get each localStorage object, parse and add to array
         const keysOfGistsInLocalStorage = Object.keys(localStorage)
-        console.log('keysOfGistsInLocalStorage: ', keysOfGistsInLocalStorage)
         let arrayOfGists = []
         for (const i of keysOfGistsInLocalStorage) {
             arrayOfGists.push(JSON.parse(localStorage.getItem(i)))

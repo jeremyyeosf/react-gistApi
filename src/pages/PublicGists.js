@@ -11,9 +11,7 @@ export class PublicGists extends React.Component {
         this.state = {
             gists: [],
             title: "Public Gists",
-            favouritedGists: []
         };
-        
     }
 
     componentDidMount() {
@@ -27,10 +25,6 @@ export class PublicGists extends React.Component {
                 console.log(error);
             });
     }
-
-    // componentDidUpdate() {
-    //     console.log('favouritedGists: ', this.state.favouritedGists)
-    // }
 
     render() {
         return (
