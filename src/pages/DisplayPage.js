@@ -34,7 +34,7 @@ export class DisplayPage extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log('updated component: ', this.state.favouritedGists)
+        console.log('favouritedGists: ', this.state.favouritedGists)
     }
 
     render() {
