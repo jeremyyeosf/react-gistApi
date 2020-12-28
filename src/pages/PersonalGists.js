@@ -14,9 +14,7 @@ export class PersonalGists extends React.Component {
         super(props);
         this.state = {
             gists: [],
-            dataTable: {
-                title: "My Gists"
-            },
+            title: "Personal Gists",
             favouritedGists: []
         };
     }
@@ -49,7 +47,7 @@ export class PersonalGists extends React.Component {
         
         return (
             <div>
-                <Header title={this.state.dataTable.title}/>
+                <Header title={this.state.title}/>
                 <Table gistsArray={this.state.gists}/>
             </div>
         );

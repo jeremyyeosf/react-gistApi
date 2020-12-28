@@ -7,7 +7,7 @@ export default class Table extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            favouritedGists: []
+            // favouritedGists: []
         }
     }
 
@@ -32,7 +32,7 @@ export default class Table extends React.Component {
         const handleSaveClick = (rowData) => {
             let result = this.props.gistsArray.find(row => row.id === rowData.id)
             console.log(result)
-            this.setState({favouritedGists: [...this.state.favouritedGists, result]})
+            // this.setState({favouritedGists: [...this.state.favouritedGists, result]})
             localStorage.setItem(rowData.id, JSON.stringify(result))
         }
         

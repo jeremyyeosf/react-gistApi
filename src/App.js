@@ -1,5 +1,5 @@
 import "./App.css";
-import { DisplayPage } from "./pages/DisplayPage";
+import { PublicGists } from "./pages/PublicGists";
 import { PersonalGists } from "./pages/PersonalGists";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -12,25 +12,25 @@ export default function App() {
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/publicGists">Public Gists</Link>
                         </li>
                         <li>
-                            <Link to="/bookmark">Bookmarked Gists</Link>
+                            <Link to="/bookmarkedGists">Bookmarked Gists</Link>
                         </li>
                         <li>
-                            <Link to="/my-gists">My Gists</Link>
+                            <Link to="/personalGists">Personal Gists</Link>
                         </li>
                     </ul>
                 </nav>
                 <Switch>
-                    <Route path="/bookmark">
+                    <Route path="/publicGists">
+                        <PublicGists />
+                    </Route>
+                    <Route path="/bookmarkedGists">
                         <BookmarkedGists />
                     </Route>
-                    <Route path="/my-gists">
+                    <Route path="/personalGists">
                         <PersonalGists />
-                    </Route>
-                    <Route path="/">
-                        <DisplayPage />
                     </Route>
                 </Switch>
             </div>
