@@ -2,12 +2,14 @@ import React from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
-import axios from 'axios';
 import Header from "../components/Header";
+require('dotenv').config()
 
 
+const { Octokit } = require("@octokit/core");
+const AUTH_TOKEN = process.env.REACT_APP_AUTH_TOKEN || "";
 
-export class DisplayPage extends React.Component {
+export class PersonalGists extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,11 +20,19 @@ export class DisplayPage extends React.Component {
             },
             favouritedGists: []
         };
-        
+    }
+
+    getPersonalGists = async () => {
+        const octokit = new Octokit({ auth: AUTH_TOKEN });
+        const response = await octokit.request("https://api.github.com/gists", {
+            org: "octokit",
+            type: "private",
+            });
+        return response
     }
 
     componentDidMount() {
-        axios.get("https://api.github.com/gists/public")
+        this.getPersonalGists()
             .then((response) => {
                 console.log(response.data);
                 const gists = response.data;
