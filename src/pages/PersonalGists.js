@@ -8,15 +8,17 @@ require('dotenv').config()
 
 const { Octokit } = require("@octokit/core");
 const AUTH_TOKEN = process.env.REACT_APP_AUTH_TOKEN || "";
+// if empty token, return public gists 
+// if wrong token, return 401
+// const AUTH_TOKEN = "a";
 
 export class PersonalGists extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             gists: [],
             dataTable: {
-                title: "Public Gists"
+                title: "My Gists"
             },
             favouritedGists: []
         };
@@ -28,23 +30,20 @@ export class PersonalGists extends React.Component {
             org: "octokit",
             type: "private",
             });
+        console.log('octokit', response)
         return response
     }
 
     componentDidMount() {
         this.getPersonalGists()
             .then((response) => {
-                console.log(response.data);
+                console.log('gists returned: ', response.data);
                 const gists = response.data;
                 this.setState({ gists });
             })
             .catch((error) => {
                 console.log(error);
             });
-    }
-
-    componentDidUpdate() {
-        console.log('updated component: ', this.state.favouritedGists)
     }
 
     render() {
@@ -66,12 +65,9 @@ export class PersonalGists extends React.Component {
         }
 
         const handleSaveClick = (rowData) => {
-            console.log('clicked save')
             let result = this.state.gists.find(row => row.id === rowData.id)
-            console.log(result)
-            this.setState({favouritedGists: [...this.state.favouritedGists, result]})
+            console.log("saved into localstorage: ", result)
             localStorage.setItem(rowData.id, JSON.stringify(result))
-            // console.log("saved: ", this.state.favouritedGists)
         }
 
         const saveButtonBodyTemplate = (rowData) => {

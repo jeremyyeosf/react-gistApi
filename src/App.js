@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <PersonalGists />
-      {/* <DisplayPage /> */}
+      <DisplayPage />
     </div>
   );
 }
