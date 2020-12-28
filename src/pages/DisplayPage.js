@@ -15,8 +15,10 @@ export class DisplayPage extends React.Component {
             gists: [],
             dataTable: {
                 title: "Public Gists"
-            }
+            },
+            favouritedGists: []
         };
+        this.handleSaveClick = this.handleSaveClick.bind(this)
     }
 
     componentDidMount() {
@@ -51,16 +53,20 @@ export class DisplayPage extends React.Component {
 
         
 
-        const saveButtonBodyTemplate = () => {
+        const saveButtonBodyTemplate = (rowData) => {
             const handleSaveClick = () => {
                 console.log('clicked save')
+                let result = this.state.gists.find(row => row.id === rowData.id)
+                console.log(result)
+                this.setState({favouritedGists: [...this.state.favouritedGists, result]})
+                console.log("saved: ", this.state.favouritedGists)
             }
 
             return (
                 <Button 
                     icon="pi pi-bookmark" 
                     className="p-button-rounded p-button-secondary p-button-outlined" 
-                    onClick={() => handleSaveClick()} 
+                    onClick={this.handleSaveClick} 
                 />
             )
         }
@@ -74,7 +80,7 @@ export class DisplayPage extends React.Component {
                     <Column field="description" header="Description" style={{width:'35%'}}></Column>
                     <Column field="created_at" header="Date Created" style={{width:'10%'}}></Column>
                     <Column field="updated_at" header="Last Updated" style={{width:'10%'}}></Column>
-                    <Column body={saveButtonBodyTemplate} header="" style={{width:'5%'}}></Column>
+                    <Column body={saveButtonBodyTemplate} key="id" header="" style={{width:'5%'}}></Column>
                 </DataTable>
             </div>
         );
