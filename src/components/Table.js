@@ -1,14 +1,50 @@
 import React from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+
 
 export default class Table extends React.Component {
+
     constructor(props) {
         super(props)
+
         this.state = {
-            // favouritedGists: []
+            displayBasic2: false,
+            position: 'center',
+            dialog: []
         }
+        this.onClick = this.onClick.bind(this);
+        this.onHide = this.onHide.bind(this);
+    }
+
+    // componentDidUpdate() {
+    //     console.log('updated:', this.state.dialog)
+    // }
+
+    onClick(name) {
+        console.log(name)
+        // let state = {
+        //     [`${name}`]: true
+        // };
+
+        // if (position) {
+        //     state = {
+        //         ...state,
+        //         position
+        //     }
+        // }
+
+        // this.setState(state);
+        this.setState({
+            [`${name}`]: true
+        });
+    }
+
+    onHide(name) {
+        this.setState({
+            [`${name}`]: false
+        });
     }
 
     render() {
@@ -32,32 +68,83 @@ export default class Table extends React.Component {
         const handleSaveClick = (rowData) => {
             let result = this.props.gistsArray.find(row => row.id === rowData.id)
             console.log(result)
-            // this.setState({favouritedGists: [...this.state.favouritedGists, result]})
             localStorage.setItem(rowData.id, JSON.stringify(result))
+            
         }
         
         const saveButtonBodyTemplate = (rowData) => {
             return (
-                <Button 
-                    icon="pi pi-bookmark" 
-                    className="p-button-rounded p-button-secondary p-button-outlined" 
-                    onClick={() => handleSaveClick(rowData)} 
-                />
-            )
+                <div>
+                    <button
+                        className="p-button p-button-rounded p-button-warning p-button-outlined"
+                        onClick={() => handleSaveClick(rowData)}
+                    >
+                        Save
+                    </button>
+                </div>
+            );
         }
 
+        const onRowSelect = (event) => {
+            console.log(event.data)
+            this.setState({dialog: event.data})
+            this.onClick('displayBasic2')
+        }
+        
         return (
             <div>
-                <DataTable value={this.props.gistsArray} resizableColumns columnResizeMode="fit">
-                    <Column body={userBodyTemplate} header="User" style={{width:'10%'}}></Column>
-                    <Column body={gistBodyTemplate} header="Gist" style={{width:'30%'}}></Column>
-                    <Column field="description" header="Description" style={{width:'35%'}}></Column>
-                    <Column field="created_at" header="Date Created" style={{width:'10%'}}></Column>
-                    <Column field="updated_at" header="Last Updated" style={{width:'10%'}}></Column>
-                    <Column body={saveButtonBodyTemplate} key="id" header="" style={{width:'5%'}}></Column>
+                <Dialog
+                    header="Header"
+                    visible={this.state.displayBasic2}
+                    style={{ width: "50vw" }}
+                    onHide={() => this.onHide("displayBasic2")}
+                >
+                    <p>{this.state.dialog.html_url}</p>
+                    <p>{this.state.dialog}</p>
+                    <img src={this.state.dialog} alt="No Avatar"></img>
+                </Dialog>
+                <DataTable
+                    value={this.props.gistsArray}
+                    resizableColumns
+                    columnResizeMode="fit"
+                    selectionMode="single"
+                    dataKey="id"
+                    onRowSelect={onRowSelect}
+                >
+                    <Column
+                        body={userBodyTemplate}
+                        header="User"
+                        style={{ width: "10%" }}
+                    ></Column>
+                    <Column
+                        body={gistBodyTemplate}
+                        header="Gist"
+                        style={{ width: "30%" }}
+                    ></Column>
+                    <Column
+                        field="description"
+                        header="Description"
+                        style={{ width: "35%" }}
+                    ></Column>
+                    <Column
+                        field="created_at"
+                        header="Date Created"
+                        style={{ width: "10%" }}
+                    ></Column>
+                    <Column
+                        field="updated_at"
+                        header="Last Updated"
+                        style={{ width: "10%" }}
+                    ></Column>
+                    <Column
+                        body={saveButtonBodyTemplate}
+                        key="id"
+                        header=""
+                        style={{ width: "5%" }}
+                    ></Column>
                 </DataTable>
             </div>
-        )
+        );
     }
 }
 
