@@ -60,7 +60,7 @@ export default class BookmarkedGists extends React.Component {
                 />
             )
         }
-
+        
         return (
             <div>
                 <Header title={this.state.title}/>

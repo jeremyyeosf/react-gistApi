@@ -2,6 +2,46 @@ import React from 'react'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
+import { TabView, TabPanel } from 'primereact/tabview';
+
+
+
+function DialogContent(props) {
+    let result = props.gistsArray.find(row => row.id === props.rowId)
+    const fileItems = Object.values(result.files).map((file) => 
+        <li>{file.filename}</li>
+    )
+    // console.log(Object.values(result.files)[0].filename)
+
+    return (
+        <div className="p-d-flex p-flex-column">
+            <div className="p-mb-2">
+                <h1>{result.owner.login}</h1>
+                <img className="item" src={result.owner.avatar_url} alt="No avatar"></img>
+            </div>
+            <div className="p-mb-2">
+                <TabView>
+                    <TabPanel header="Files">
+                        <ul>{fileItems}</ul>
+                    </TabPanel>
+                    <TabPanel header="Timestamp">
+                        <div>
+                            <h4>
+                                Created: 
+                            </h4>
+                            {result.created_at}
+                            <h4>
+                                Last Updated: 
+                            </h4>
+                            {result.updated_at}
+                        </div>
+                    </TabPanel>
+                </TabView>
+            </div>
+        </div>
+    )
+}
+
 
 
 export default class Table extends React.Component {
@@ -12,33 +52,27 @@ export default class Table extends React.Component {
         this.state = {
             displayBasic2: false,
             position: 'center',
-            dialog: []
+            dialog: {},
+            isLoaded: false
         }
         this.onClick = this.onClick.bind(this);
         this.onHide = this.onHide.bind(this);
     }
 
-    // componentDidUpdate() {
-    //     console.log('updated:', this.state.dialog)
-    // }
-
-    onClick(name) {
-        console.log(name)
-        // let state = {
-        //     [`${name}`]: true
-        // };
-
-        // if (position) {
-        //     state = {
-        //         ...state,
-        //         position
-        //     }
-        // }
-
-        // this.setState(state);
-        this.setState({
+    onClick(name, position) {
+        let state = {
             [`${name}`]: true
-        });
+        };
+
+        if (position) {
+            state = {
+                ...state,
+                position
+            }
+        }
+
+        this.setState(state);
+        
     }
 
     onHide(name) {
@@ -67,14 +101,13 @@ export default class Table extends React.Component {
         
         const handleSaveClick = (rowData) => {
             let result = this.props.gistsArray.find(row => row.id === rowData.id)
-            console.log(result)
             localStorage.setItem(rowData.id, JSON.stringify(result))
             
         }
         
         const saveButtonBodyTemplate = (rowData) => {
             return (
-                <div>
+                <div className="center">
                     <button
                         className="p-button p-button-rounded p-button-warning p-button-outlined"
                         onClick={() => handleSaveClick(rowData)}
@@ -86,7 +119,6 @@ export default class Table extends React.Component {
         }
 
         const onRowSelect = (event) => {
-            console.log(event.data)
             this.setState({dialog: event.data})
             this.onClick('displayBasic2')
         }
@@ -94,14 +126,11 @@ export default class Table extends React.Component {
         return (
             <div>
                 <Dialog
-                    header="Header"
                     visible={this.state.displayBasic2}
-                    style={{ width: "50vw" }}
+                    style={{ width: "30vw" }}
                     onHide={() => this.onHide("displayBasic2")}
                 >
-                    <p>{this.state.dialog.html_url}</p>
-                    <p>{this.state.dialog}</p>
-                    <img src={this.state.dialog} alt="No Avatar"></img>
+                    <DialogContent rowId={this.state.dialog.id} gistsArray={this.props.gistsArray}/>
                 </Dialog>
                 <DataTable
                     value={this.props.gistsArray}
@@ -119,7 +148,7 @@ export default class Table extends React.Component {
                     <Column
                         body={gistBodyTemplate}
                         header="Gist"
-                        style={{ width: "30%" }}
+                        style={{ width: "20%" }}
                     ></Column>
                     <Column
                         field="description"
@@ -127,20 +156,10 @@ export default class Table extends React.Component {
                         style={{ width: "35%" }}
                     ></Column>
                     <Column
-                        field="created_at"
-                        header="Date Created"
-                        style={{ width: "10%" }}
-                    ></Column>
-                    <Column
-                        field="updated_at"
-                        header="Last Updated"
-                        style={{ width: "10%" }}
-                    ></Column>
-                    <Column
                         body={saveButtonBodyTemplate}
                         key="id"
                         header=""
-                        style={{ width: "5%" }}
+                        style={{ width: "10%" }}
                     ></Column>
                 </DataTable>
             </div>
