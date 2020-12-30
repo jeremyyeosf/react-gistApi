@@ -9,18 +9,25 @@ import { TabView, TabPanel } from 'primereact/tabview';
 function DialogContent(props) {
     let result = props.gistsArray.find(row => row.id === props.rowId)
     const fileItems = Object.values(result.files).map((file) => 
-        <li>{file.filename}</li>
+        <li className="text-wrap" key={result.id}>{file.filename}</li>
     )
-    // console.log(Object.values(result.files)[0].filename)
 
     return (
         <div className="p-d-flex p-flex-column">
             <div className="p-mb-2">
-                <h1>{result.owner.login}</h1>
-                <img className="item" src={result.owner.avatar_url} alt="No avatar"></img>
+                <h1 className="text-wrap">{result.owner.login}</h1>
+                <a href={result.owner.html_url} target="_blank" rel="noopener noreferrer" className="anchortext text-wrap">
+                    <img className="item" src={result.owner.avatar_url} alt="No avatar"></img>
+                </a>
+                
             </div>
             <div className="p-mb-2">
                 <TabView>
+                    <TabPanel header="Gist">
+                        <a href={result.html_url} target="_blank" rel="noopener noreferrer" className="anchortext">
+                            {result.html_url}
+                        </a>
+                    </TabPanel>
                     <TabPanel header="Files">
                         <ul>{fileItems}</ul>
                     </TabPanel>
@@ -53,7 +60,6 @@ export default class Table extends React.Component {
             displayBasic2: false,
             position: 'center',
             dialog: {},
-            isLoaded: false
         }
         this.onClick = this.onClick.bind(this);
         this.onHide = this.onHide.bind(this);
@@ -102,14 +108,13 @@ export default class Table extends React.Component {
         const handleSaveClick = (rowData) => {
             let result = this.props.gistsArray.find(row => row.id === rowData.id)
             localStorage.setItem(rowData.id, JSON.stringify(result))
-            
         }
         
         const saveButtonBodyTemplate = (rowData) => {
             return (
                 <div className="center">
                     <button
-                        className="p-button p-button-rounded p-button-warning p-button-outlined"
+                        className="p-button p-button-rounded p-button-warning"
                         onClick={() => handleSaveClick(rowData)}
                     >
                         Save
@@ -166,5 +171,4 @@ export default class Table extends React.Component {
         );
     }
 }
-
 

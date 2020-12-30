@@ -5,35 +5,32 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import BookmarkedGists from "./pages/BookmarkedGists";
 
+
 export default function App() {
     return (
-        <Router>
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/publicGists">Public Gists</Link>
-                        </li>
-                        <li>
-                            <Link to="/bookmarkedGists">Bookmarked Gists</Link>
-                        </li>
-                        <li>
-                            <Link to="/personalGists">Personal Gists</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <Switch>
-                    <Route path="/publicGists">
-                        <PublicGists />
-                    </Route>
-                    <Route path="/bookmarkedGists">
-                        <BookmarkedGists />
-                    </Route>
-                    <Route path="/personalGists">
-                        <PersonalGists />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+        <div>
+            <Router>
+                <div>
+                    <nav className="nav-bar sticky">
+                        <Link className="navtext router-link" to="/">PUBLIC</Link>
+                        <Link className="navtext router-link" to="/personalGists">PERSONAL</Link>
+                        <Link className="navtext router-link" to="/bookmarkedGists">
+                            BOOKMARKS
+                        </Link>
+                    </nav>
+                    <Switch>
+                        <Route path="/bookmarkedGists">
+                            <BookmarkedGists />
+                        </Route>
+                        <Route path="/personalGists">
+                            <PersonalGists />
+                        </Route>
+                        <Route path="/">
+                            <PublicGists />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </div>
     );
 }

@@ -12,22 +12,60 @@ code {
     monospace;
 }
 
+div > .p-datatable .p-datatable-tbody > tr {
+  background: #fdf6f0;
+}
+
+/* td {
+  background: #fdf3f0;
+} */
+
 .anchortext {
   color: black; 
   text-decoration: none;
+  overflow-wrap: break-word
 }
 
-a:hover {
-  color: #1abc9c;
+nav > .navtext {
+  color: #fdf3f0; 
+  text-decoration: none;
+  overflow-wrap: break-word
+}
+
+nav > a:hover { 
+  color: #e76f51;
+  text-decoration: none;
+}
+
+td > a:hover {
+  color: #e76f51;
   text-decoration: underline;
 }
+
+td > div > button:hover {
+  color: #e76f51;
+}
+
+.text-wrap {
+  overflow-wrap: break-word;
+}
+
+
 
 .header {
   padding: 50px;
   text-align: left;
-  background: #1abc9c;
+  background: #f4a261;
   color: black;
   font-size: 40px;
+}
+
+.nav-bar {
+  padding: 50px;
+  text-align: left;
+  background: #264653;
+  color: black;
+  font-size: 20px;
 }
 
 img {
@@ -45,4 +83,31 @@ img {
 
 .center {
   text-align: center;
+}
+
+.currentLink {
+  color: #640200;
+  background-color: #000000;
+}
+
+.active-link {
+  background-color: white;
+}
+
+.sticky {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.router-link {
+  padding: 10px 15px 9px 15px;
+}
+
+div > .p-datatable .p-datatable-thead > tr > th {
+  background: #e9c46a;
 }

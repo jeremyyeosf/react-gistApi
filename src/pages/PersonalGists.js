@@ -24,14 +24,12 @@ export class PersonalGists extends React.Component {
             org: "octokit",
             type: "private",
             });
-        console.log('octokit', response)
         return response
     }
 
     componentDidMount() {
         this.getPersonalGists()
             .then((response) => {
-                console.log('gists returned: ', response.data);
                 const gists = response.data;
                 this.setState({ gists });
             })
