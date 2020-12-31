@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const { Octokit } = require("@octokit/core");
 const AUTH_TOKEN = process.env.REACT_APP_AUTH_TOKEN || "";
-// if empty token, return public gists 
+// TODO if empty token, return public gists 
 // if wrong token, return 401
 // const AUTH_TOKEN = "a";
 

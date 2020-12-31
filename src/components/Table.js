@@ -3,6 +3,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dialog } from 'primereact/dialog';
 import { TabView, TabPanel } from 'primereact/tabview';
+import { Toast } from 'primereact/toast';
+
 
 
 
@@ -24,7 +26,8 @@ function DialogContent(props) {
             <div className="p-mb-2">
                 <TabView>
                     <TabPanel header="Gist">
-                        <a href={result.html_url} target="_blank" rel="noopener noreferrer" className="anchortext">
+                        <h4>Gist Url:</h4>
+                        <a href={result.html_url} target="_blank" rel="noopener noreferrer" className="dialog-anchortext">
                             {result.html_url}
                         </a>
                     </TabPanel>
@@ -63,6 +66,11 @@ export default class Table extends React.Component {
         }
         this.onClick = this.onClick.bind(this);
         this.onHide = this.onHide.bind(this);
+        this.showBookmarkSavedToast = this.showBookmarkSavedToast.bind(this);
+    }
+
+    showBookmarkSavedToast() {
+        this.toast.show({severity:'success', summary: 'Bookmark Saved', detail:'', life: 1500});
     }
 
     onClick(name, position) {
@@ -108,6 +116,7 @@ export default class Table extends React.Component {
         const handleSaveClick = (rowData) => {
             let result = this.props.gistsArray.find(row => row.id === rowData.id)
             localStorage.setItem(rowData.id, JSON.stringify(result))
+            this.showBookmarkSavedToast()
         }
         
         const saveButtonBodyTemplate = (rowData) => {
@@ -130,6 +139,7 @@ export default class Table extends React.Component {
         
         return (
             <div>
+                <Toast ref={(el) => this.toast = el} />
                 <Dialog
                     visible={this.state.displayBasic2}
                     style={{ width: "30vw" }}

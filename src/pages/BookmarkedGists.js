@@ -4,6 +4,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dialog } from "primereact/dialog";
 import { TabView, TabPanel } from "primereact/tabview";
+import { Toast } from 'primereact/toast';
 
 function DialogContent(props) {
     let result = props.gistsArray.find((row) => row.id === props.rowId);
@@ -33,17 +34,15 @@ function DialogContent(props) {
             <div className="p-mb-2">
                 <TabView>
                     <TabPanel header="Gist">
-                        <div>
-                            <h4>Gist Url:</h4>
-                            <a
-                                href={result.html_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="anchortext"
-                            >
-                                {result.html_url}
-                            </a>
-                        </div>
+                        <h4>Gist Url:</h4>
+                        <a
+                            href={result.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="dialog-anchortext"
+                        >
+                            {result.html_url}
+                        </a>
                     </TabPanel>
                     <TabPanel header="Files">
                         <ul>{fileItems}</ul>
@@ -74,6 +73,7 @@ export default class BookmarkedGists extends React.Component {
         };
         this.onClick = this.onClick.bind(this);
         this.onHide = this.onHide.bind(this);
+        this.showBookmarkDeletedToast = this.showBookmarkDeletedToast.bind(this);
     }
 
     componentDidMount() {
@@ -84,6 +84,10 @@ export default class BookmarkedGists extends React.Component {
             arrayOfGists.push(JSON.parse(localStorage.getItem(i)));
         }
         this.setState({ bookmarkedGists: arrayOfGists });
+    }
+
+    showBookmarkDeletedToast() {
+        this.toast.show({severity:'error', summary: 'Bookmark Deleted', detail:'', life: 1500});
     }
 
     onClick(name, position) {
@@ -142,6 +146,7 @@ export default class BookmarkedGists extends React.Component {
                 return i.id !== rowData.id;
             });
             this.setState({ bookmarkedGists: filteredArray });
+            this.showBookmarkDeletedToast()
         };
 
         const deleteButtonBodyTemplate = (rowData) => {
@@ -164,6 +169,7 @@ export default class BookmarkedGists extends React.Component {
 
         return (
             <div>
+                <Toast ref={(el) => this.toast = el} />
                 <Header title={this.state.title} />
                 <Dialog
                     visible={this.state.displayBasic2}

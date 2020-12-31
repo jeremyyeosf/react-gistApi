@@ -20,6 +20,22 @@ div > .p-datatable .p-datatable-tbody > tr {
   background: #fdf3f0;
 } */
 
+table > tbody > tr > td {
+  color: #000000;
+}
+
+.dialog-anchortext {
+  color: white; 
+  text-decoration: none;
+  overflow-wrap: break-word
+}
+
+.dialog-anchortext:hover {
+  color: #e76f51;
+  text-decoration: underline;
+  overflow-wrap: break-word
+}
+
 .anchortext {
   color: black; 
   text-decoration: none;
@@ -64,8 +80,7 @@ td > div > button:hover {
   padding: 50px;
   text-align: left;
   background: #264653;
-  color: black;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 img {
@@ -110,4 +125,22 @@ img {
 
 div > .p-datatable .p-datatable-thead > tr > th {
   background: #e9c46a;
+}
+
+div > .p-button, .p-buttonset.p-button-warning > .p-button, .p-splitbutton.p-button-warning > .p-button {
+  color: #323130;
+  background: #fffc44;
+  border: 1px solid #fffc44;
+}
+
+div > .p-button, .p-buttonset.p-button-warning > .p-button, .p-splitbutton.p-button-warning > .p-button:hover {
+  color: #323130;
+  background: #fffc44;
+  border: 1px solid #fffc44;
+}
+
+table>tbody>tr>td>div>button:hover {
+  color: #323130;
+  background-color: #e7e43e;
+  border: 1px solid #fffc44;
 }
