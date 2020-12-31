@@ -1,36 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// export default function Header(props) {
-//     return (
-//         <div className="header">
-//             {props.title}
-//         </div>
-
-//     )
-// }
-
-// export default function Header(props) {
-//     return (
-//         <div className="header">
-//             <ul class="nav nav-fill">
-//             <Link
-//                     className="anchortext"
-//                     to="/"
-//                 >
-//                     Public Gists
-//                 </Link>
-//                 <Link className="anchortext" to="/bookmarkedGists">
-//                     Bookmarked Gists
-//                 </Link>
-//                 <Link className="anchortext" to="/personalGists">
-//                     Personal Gists
-//                 </Link>
-//             </ul>
-//         </div>
-//     );
-// }
-
 // requires two clicks for onClick to setState
 export default class Header extends React.Component {
     constructor(props) {
@@ -61,25 +31,7 @@ export default class Header extends React.Component {
         console.log('clicked personal')
     };
 
-    // isStateActiveClass = this.state.active ? 'active-link': null
-    // linkClass = `anchortext ${this.isStateActiveClass}`
-
     render() {
-        
-        // const activatePublicLink = () => {
-        //     this.setState({ activeLink: "public" });
-        //     console.log('clicked public')
-        // };
-        // const activateBookmarkedLink = () => {
-        //     this.setState({ activeLink: "bookmarked" });
-        //     console.log('clicked bookmarked')
-        // };
-
-        // const activatePersonalLink = () => {
-        //     this.setState({ activeLink: "personal" });
-        //     console.log('clicked personal')
-        // };
-
         return (
             <div className="header">
                 <ul class="nav nav-fill">
@@ -116,3 +68,6 @@ export default class Header extends React.Component {
 //         </div>
 //     );
 // }
+
+ // isStateActiveClass = this.state.active ? 'active-link': null
+    // linkClass = `anchortext ${this.isStateActiveClass}`
