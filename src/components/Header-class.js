@@ -14,6 +14,7 @@ export default class Header extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log('componentDidUpdate called')
         console.log('the activeLink is now: ', this.state.activeLink)
     }
 
